@@ -3,8 +3,8 @@ import { test, expect } from '@playwright/test';
 let firstMatchTime;
 let utcTime;
 
-test.only('FPL deadline reminder', async ({ page }) => {
-  await page.goto('https://draft.premierleague.com/fixtures/13');
+test('FPL deadline reminder', async ({ page }) => {
+  await page.goto('https://draft.premierleague.com/fixtures');
 
   await expect(page).toHaveTitle("View Latest Premier League Fixtures | Fantasy Premier League Draft 2022/23");
 
