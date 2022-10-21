@@ -21,7 +21,7 @@ test('FPL deadline reminder', async ({ page, request }) => {
     console.log("Next GW's first match is on: "+utcTime.toUTCString());
     console.log("FPL Transfer Deadline is on: "+utcTime.toUTCString())
 
-    const newIssue = await request.post(`https://hooks.slack.com/workflows/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`);
+    const newIssue = await request.post(`//slack webhook here`);
   }
   else
   {
