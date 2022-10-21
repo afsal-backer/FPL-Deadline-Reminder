@@ -18,10 +18,3 @@ jobs:
       run: npx playwright install chromium
     - name: Run Playwright tests
       run: npx playwright test
-    - uses: MeilCli/slack-upload-file@v1
-      with:
-        slack_token: ${{ secrets.SLACK_TOKEN }}
-        file_path: './playwright-report/index.html'
-        file_name: 'fpl-report.html'
-        file_type: 'html'
-        channels: 'fpl-reminder'

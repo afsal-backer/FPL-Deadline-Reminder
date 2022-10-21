@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 let firstMatchTime;
 let utcTime;
 
-test('FPL deadline reminder', async ({ page }) => {
+test('FPL deadline reminder', async ({ page, request }) => {
   await page.goto('https://draft.premierleague.com/fixtures');
 
   await expect(page).toHaveTitle("View Latest Premier League Fixtures | Fantasy Premier League Draft 2022/23");
@@ -11,23 +11,22 @@ test('FPL deadline reminder', async ({ page }) => {
   firstMatchTime = await page.locator("(//time)[1]").getAttribute('datetime');
   utcTime = new Date(firstMatchTime);
 
-  console.log("Next GW's first match is at: "+utcTime.toUTCString());
-
   subtractHours(2,utcTime);
-  console.log("FPL Transfer Deadline is at: "+utcTime.toUTCString())
   
   let systemDate = new Date();
-  console.log("Todays' date is: "+systemDate.toUTCString());
 
   if(systemDate.getUTCDate()==utcTime.getUTCDate() && systemDate.getUTCDay()==utcTime.getUTCDay() && systemDate.getUTCFullYear()==utcTime.getUTCFullYear())
   {
     console.log("Today is FPL deadline day!");
+    console.log("Next GW's first match is on: "+utcTime.toUTCString());
+    console.log("FPL Transfer Deadline is on: "+utcTime.toUTCString())
+
+    const newIssue = await request.post(`https://hooks.slack.com/workflows/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`);
   }
   else
   {
-    console.log("Not today!");
+    console.log("Deadline is not today!");
   }
-
 });
 
 function subtractHours(numOfHours, time) {
